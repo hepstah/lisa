@@ -9,6 +9,7 @@ import { DeviceConfig } from "./components/DeviceConfig";
 import { useWebSocket } from "./hooks/useWebSocket";
 import { useDevices } from "./hooks/useDevices";
 import { useCommands } from "./hooks/useCommands";
+import { usePipelineStatus } from "./hooks/usePipelineStatus";
 import { controlDevice, sendTextCommand } from "./api/client";
 import type { WsEvent } from "./api/types";
 
@@ -28,12 +29,18 @@ function App() {
     handleWsEvent: handleCommandWsEvent,
   } = useCommands();
 
+  const {
+    status: pipelineStatus,
+    handleWsEvent: handlePipelineWsEvent,
+  } = usePipelineStatus();
+
   const handleWsMessage = useCallback(
     (event: WsEvent) => {
       handleDeviceWsEvent(event);
       handleCommandWsEvent(event);
+      handlePipelineWsEvent(event);
     },
-    [handleDeviceWsEvent, handleCommandWsEvent],
+    [handleDeviceWsEvent, handleCommandWsEvent, handlePipelineWsEvent],
   );
 
   const { status: wsStatus } = useWebSocket(handleWsMessage);
@@ -71,7 +78,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground dark">
-      <StatusBar status={wsStatus} />
+      <StatusBar status={wsStatus} pipelineStatus={pipelineStatus} />
 
       <main className="container mx-auto px-4 py-6 lg:px-8">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">

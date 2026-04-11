@@ -1,4 +1,5 @@
-import type { WsStatus } from "../api/types";
+import type { WsStatus, PipelineState } from "../api/types";
+import { PipelineStatus } from "./PipelineStatus";
 
 const statusConfig = {
   connected: {
@@ -15,7 +16,7 @@ const statusConfig = {
   },
 } as const satisfies Record<WsStatus, { dotClass: string; label: string }>;
 
-export function StatusBar({ status }: { status: WsStatus }) {
+export function StatusBar({ status, pipelineStatus }: { status: WsStatus; pipelineStatus: PipelineState }) {
   const config = statusConfig[status];
 
   return (
@@ -23,15 +24,19 @@ export function StatusBar({ status }: { status: WsStatus }) {
       <div className="container mx-auto flex h-14 items-center justify-between px-4 lg:px-8">
         <span className="text-xl font-semibold">Lisa</span>
 
-        <div className="flex items-center gap-2">
-          <span
-            className={`inline-block h-2 w-2 rounded-full ${config.dotClass}`}
-            aria-hidden="true"
-          />
-          <span className="hidden text-sm text-muted-foreground sm:inline">
-            {config.label}
-          </span>
-          <span className="sr-only">{config.label}</span>
+        <div className="flex items-center gap-4">
+          <PipelineStatus status={pipelineStatus} />
+          <div className="h-4 w-px bg-border" aria-hidden="true" />
+          <div className="flex items-center gap-2">
+            <span
+              className={`inline-block h-2 w-2 rounded-full ${config.dotClass}`}
+              aria-hidden="true"
+            />
+            <span className="hidden text-sm text-muted-foreground sm:inline">
+              {config.label}
+            </span>
+            <span className="sr-only">{config.label}</span>
+          </div>
         </div>
       </div>
     </header>
