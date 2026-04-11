@@ -33,7 +33,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 Plans:
 - [ ] 01-01-PLAN.md -- Backend core: Python scaffold, config, SQLite, device adapters, device service with allowlist
 - [ ] 01-02-PLAN.md -- Backend API: FastAPI REST endpoints, WebSocket broadcasting, text command parsing
-- [ ] 01-03-PLAN.md -- Frontend scaffold: Vite + React + Tailwind v4 + shadcn, types, API client, data hooks
+- [x] 01-03-PLAN.md -- Frontend scaffold: Vite + React + Tailwind v4 + shadcn, types, API client, data hooks
 - [ ] 01-04-PLAN.md -- Dashboard UI: StatusBar, DeviceCard, DeviceList, CommandHistory, TextCommand, DeviceConfig
 - [ ] 01-05-PLAN.md -- Integration: systemd service, SPA serving, full visual verification checkpoint
 **UI hint**: yes

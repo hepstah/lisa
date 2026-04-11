@@ -18,14 +18,14 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Device Control
 
 - [ ] **DEVICE-01**: Control one concrete device integration end-to-end via voice command
-- [ ] **DEVICE-02**: Validate all LLM intent output against an allowlist of known devices and supported actions before execution
-- [ ] **DEVICE-03**: Query actual device state before executing commands (not cached state)
+- [x] **DEVICE-02**: Validate all LLM intent output against an allowlist of known devices and supported actions before execution
+- [x] **DEVICE-03**: Query actual device state before executing commands (not cached state)
 - [ ] **DEVICE-04**: Expose REST API endpoints for external tools to trigger device actions
 
 ### Dashboard
 
-- [ ] **DASH-01**: Display current device status (on/off, reachable/unreachable) with real-time updates via WebSocket
-- [ ] **DASH-02**: Show command history with success/failure states and timestamps
+- [x] **DASH-01**: Display current device status (on/off, reachable/unreachable) with real-time updates via WebSocket
+- [x] **DASH-02**: Show command history with success/failure states and timestamps
 - [ ] **DASH-03**: Provide device configuration flow for the initial integration without requiring SSH or shell access
 - [ ] **DASH-04**: Accept typed text commands as an alternative to voice input
 - [ ] **DASH-05**: Show assistant pipeline status (listening, processing, responding, error, offline)
@@ -39,10 +39,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: Run all local services on Raspberry Pi 5 (4GB) within memory budget (~850MB target)
+- [x] **INFRA-01**: Run all local services on Raspberry Pi 5 (4GB) within memory budget (~850MB target)
 - [ ] **INFRA-02**: Auto-start all services on Pi boot via systemd
-- [ ] **INFRA-03**: Use SQLite with WAL mode for crash-resilient state persistence
-- [ ] **INFRA-04**: Isolate audio capture in a dedicated thread to avoid blocking the async event loop
+- [x] **INFRA-03**: Use SQLite with WAL mode for crash-resilient state persistence
+- [x] **INFRA-04**: Isolate audio capture in a dedicated thread to avoid blocking the async event loop
 
 ## v2 Requirements
 
@@ -94,11 +94,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VOICE-04 | Phase 2 | Pending |
 | VOICE-05 | Phase 2 | Pending |
 | DEVICE-01 | Phase 3 | Pending |
-| DEVICE-02 | Phase 1 | Pending |
-| DEVICE-03 | Phase 1 | Pending |
+| DEVICE-02 | Phase 1 | Complete |
+| DEVICE-03 | Phase 1 | Complete |
 | DEVICE-04 | Phase 1 | Pending |
-| DASH-01 | Phase 1 | Pending |
-| DASH-02 | Phase 1 | Pending |
+| DASH-01 | Phase 1 | Complete |
+| DASH-02 | Phase 1 | Complete |
 | DASH-03 | Phase 1 | Pending |
 | DASH-04 | Phase 1 | Pending |
 | DASH-05 | Phase 3 | Pending |
@@ -106,10 +106,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ERR-02 | Phase 1 | Pending |
 | ERR-03 | Phase 2 | Pending |
 | ERR-04 | Phase 1 | Pending |
-| INFRA-01 | Phase 1 | Pending |
+| INFRA-01 | Phase 1 | Complete |
 | INFRA-02 | Phase 1 | Pending |
-| INFRA-03 | Phase 1 | Pending |
-| INFRA-04 | Phase 1 | Pending |
+| INFRA-03 | Phase 1 | Complete |
+| INFRA-04 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 22 total
