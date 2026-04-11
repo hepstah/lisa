@@ -83,11 +83,11 @@ Exceptions: Touch targets on toggle switches and buttons must be at minimum 44px
 | Role | Size | Weight | Line Height | Tailwind Class |
 |------|------|--------|-------------|----------------|
 | Body | 14px | 400 (regular) | 1.5 | `text-sm font-normal leading-normal` |
-| Label | 14px | 500 (medium) | 1.4 | `text-sm font-medium` |
+| Label | 14px | 400 (regular) | 1.4 | `text-sm font-normal tracking-wide uppercase` |
 | Heading | 20px | 600 (semibold) | 1.2 | `text-xl font-semibold leading-tight` |
 | Display | 28px | 600 (semibold) | 1.2 | `text-2xl font-semibold leading-tight` |
 
-**Font weights used:** 400 (body text, table content, timestamps) and 600 (headings, CTA labels, device names). Medium (500) is permitted only for form labels.
+**Font weights used:** 400 (body text, form labels, table content, timestamps) and 600 (headings, CTA labels, device names). Only 2 weights. Form labels are differentiated from body text via `tracking-wide uppercase` letter-spacing treatment, not a third weight.
 
 **Monospace:** Timestamps and error details use `font-mono text-xs` (12px monospace) for scanability in the command history table.
 
@@ -111,7 +111,7 @@ shadcn's zinc palette with CSS variables provides the foundation. The specific v
 The accent color (zinc-50 as primary on dark background) is reserved for exactly these elements:
 
 1. Device toggle switch (active/on state track color)
-2. "Send" button on text command input
+2. "Send Command" button on text command input
 3. "Add Device" button in device config
 4. "Save" button in configuration dialog
 5. Active connection status dot (green variant -- see semantic colors below)
@@ -171,9 +171,9 @@ Mobile-first. Single column on mobile, two-column grid on tablet and above.
 |  +---------------------------------------------+  |
 |                                                   |
 |  +-- Command Panel ----------------------------+  |
-|  | +-- TextCommand --------+                   |  |
-|  | | [Type a command...] [Send]|               |  |
-|  | +----------------------+                    |  |
+|  | +-- TextCommand ----------------+           |  |
+|  | | [Type a command...] [Send Command]|       |  |
+|  | +------------------------------+           |  |
 |  |                                             |  |
 |  | Heading: "Command History"                  |  |
 |  | +-- CommandHistory (table) -------+         |  |
@@ -237,9 +237,9 @@ Triggered by "Add Device" button. Uses shadcn Dialog.
 
 | Element | Copy |
 |---------|------|
-| Primary CTA | "Send" (text command submit button) |
+| Primary CTA | "Send Command" (text command submit button) |
 | Secondary CTA | "Add Device" (device configuration trigger) |
-| Empty state heading (devices) | "No devices found" |
+| Empty state heading (devices) | "No devices yet" |
 | Empty state body (devices) | "Add your first smart device to get started." followed by [Add Device] button |
 | Empty state heading (commands) | "No commands yet" |
 | Empty state body (commands) | "Use the text input above to send your first command." |
@@ -249,7 +249,7 @@ Triggered by "Add Device" button. Uses shadcn Dialog.
 | Error: no devices configured | "No devices configured. Add a device before sending commands." |
 | Connection lost (WS) | "Reconnecting..." (shown in StatusBar, replaces connection status) |
 | Connection restored (WS) | "Connected" (shown in StatusBar, auto-dismisses reconnecting state) |
-| Destructive: remove device | "Remove Device": "This will remove {device_alias} from Lisa. You can re-add it later." with [Cancel] and [Remove] buttons |
+| Destructive: remove device | "Remove Device": "This will remove {device_alias} from Lisa. You can re-add it later." with [Cancel] and [Remove Device] buttons |
 | StatusBar title | "Lisa" |
 | Text command placeholder | "Type a command..." |
 | Device config: discover button | "Discover Devices" |
@@ -287,8 +287,8 @@ Expandable row on click shows: full raw_input, error_message, error_stage, durat
 | State | Behavior |
 |-------|----------|
 | Empty | Placeholder text: "Type a command..." |
-| Typing | Standard input behavior, Send button enabled when input is non-empty |
-| Submitting | Input disabled, Send button shows loading state (spinner icon replaces send icon) |
+| Typing | Standard input behavior, Send Command button enabled when input is non-empty |
+| Submitting | Input disabled, Send Command button shows loading state (spinner icon replaces send icon) |
 | Success | Input clears, command appears in history table with success badge |
 | Error | Input retains text (user can edit and retry), toast shows error, command appears in history with error badge |
 
@@ -332,6 +332,7 @@ Expandable row on click shows: full raw_input, error_message, error_stage, durat
 | Screen reader: toggle | `aria-label="Toggle {alias}"` on Switch |
 | Screen reader: status badges | Badge text is the accessible label (no icon-only badges) |
 | Screen reader: command history | Table uses semantic `<table>` with `<th>` headers |
+| Screen reader: settings icon | `aria-label="Settings"` on the StatusBar settings gear icon button |
 | Focus visible | Tailwind `focus-visible:ring-2 focus-visible:ring-ring` on all interactive elements (shadcn default) |
 | Color contrast | All text on dark backgrounds meets WCAG AA (4.5:1 minimum). zinc-400 (#a1a1aa) on zinc-950 = 7.4:1. emerald-500 on zinc-950 = 5.1:1. |
 | Touch targets | Minimum 44x44px for all interactive elements on mobile |
