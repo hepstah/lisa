@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node __TRACKED_VAR__/.claude/get-shit-done/bin/gsd-tools.cjs generate-claude-md)",
+      "Bash(echo \"exit: $?\")"
+    ]
+  }
+}
