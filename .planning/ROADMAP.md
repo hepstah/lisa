@@ -64,7 +64,11 @@ Plans:
   1. Saying "Hey Lisa, turn on the bedroom lamp" causes the lamp to respond within 3 seconds on a healthy network
   2. The dashboard shows live pipeline status (listening, processing, responding, error, offline) during a voice command
   3. All defined failure modes produce correct spoken feedback and appear in the dashboard command log
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 03-01-PLAN.md -- Backend: VoiceLoop continuous audio loop, TTS speaker playback, lifespan wiring with status broadcast
+- [ ] 03-02-PLAN.md -- Dashboard: pipeline status types, hook, PipelineStatus component in StatusBar, visual verification
 
 ## Progress
 
@@ -73,6 +77,6 @@ Phases execute in numeric order: 1 -> 2 -> 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/5 | Planned | - |
-| 2. Voice Pipeline | 3/4 | Executing | - |
-| 3. Integration | 0/TBD | Not started | - |
+| 1. Foundation | 5/5 | Complete | - |
+| 2. Voice Pipeline | 4/4 | Complete | - |
+| 3. Integration | 0/2 | Planned | - |
