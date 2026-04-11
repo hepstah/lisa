@@ -6,6 +6,7 @@ from lisa.db import get_db
 router = APIRouter(prefix="/api/commands", tags=["commands"])
 
 device_service = None  # Set in main.py
+voice_pipeline = None  # Set in main.py (Phase 2)
 
 
 @router.get("/history", response_model=list[CommandRecord])
@@ -39,11 +40,17 @@ async def get_command_history(limit: int = 50, offset: int = 0):
 
 @router.post("/text", response_model=dict)
 async def text_command(req: TextCommandRequest):
-    """Process a typed text command. Per DASH-04.
+    """Process a typed text command. Per DASH-04, D-13.
 
-    Simple parser for Phase 1. Matches: 'turn on/off [the] {device_alias}'.
-    Phase 2 replaces this with LLM intent parsing.
+    If voice pipeline is available, uses LLM intent parsing.
+    Otherwise falls back to simple regex parser (Phase 1).
     """
+    if voice_pipeline is not None:
+        result = await voice_pipeline.process_text(req.text, source=req.source)
+        await manager.broadcast({"type": "command_logged", "command": result})
+        return result
+
+    # Fallback: Phase 1 simple parser (when voice pipeline not configured)
     text = req.text.strip().lower()
 
     # Parse action
