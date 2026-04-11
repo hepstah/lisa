@@ -67,7 +67,7 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md -- Backend: VoiceLoop continuous audio loop, TTS speaker playback, lifespan wiring with status broadcast
+- [x] 03-01-PLAN.md -- Backend: VoiceLoop continuous audio loop, TTS speaker playback, lifespan wiring with status broadcast
 - [x] 03-02-PLAN.md -- Dashboard: pipeline status types, hook, PipelineStatus component in StatusBar, visual verification
 
 ## Progress

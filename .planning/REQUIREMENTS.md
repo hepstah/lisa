@@ -17,7 +17,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Device Control
 
-- [ ] **DEVICE-01**: Control one concrete device integration end-to-end via voice command
+- [x] **DEVICE-01**: Control one concrete device integration end-to-end via voice command
 - [x] **DEVICE-02**: Validate all LLM intent output against an allowlist of known devices and supported actions before execution
 - [x] **DEVICE-03**: Query actual device state before executing commands (not cached state)
 - [x] **DEVICE-04**: Expose REST API endpoints for external tools to trigger device actions
@@ -93,7 +93,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VOICE-03 | Phase 2 | Complete |
 | VOICE-04 | Phase 2 | Complete |
 | VOICE-05 | Phase 2 | Complete |
-| DEVICE-01 | Phase 3 | Pending |
+| DEVICE-01 | Phase 3 | Complete |
 | DEVICE-02 | Phase 1 | Complete |
 | DEVICE-03 | Phase 1 | Complete |
 | DEVICE-04 | Phase 1 | Complete |

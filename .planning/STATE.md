@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to execute
-stopped_at: Completed 03-02-PLAN.md (awaiting Task 3 human-verify checkpoint)
-last_updated: "2026-04-11T20:40:03.138Z"
+status: Phase complete — ready for verification
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-04-11T20:42:26.532Z"
 progress:
   total_phases: 3
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 11
-  completed_plans: 10
+  completed_plans: 11
 ---
 
 # Project State
@@ -54,6 +54,7 @@ Plan: 2 of 2
 | Phase 02 P01 | 6min | 2 tasks | 6 files |
 | Phase 02 P04 | 3min | 2 tasks | 5 files |
 | Phase 03 P02 | 2min | 2 tasks | 5 files |
+| Phase 03 P01 | 4min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -82,6 +83,9 @@ Recent decisions affecting current work:
 - [Phase 02]: Pipeline error DB insert guarded by 'id' not in result to avoid double-insert with DeviceService._log_command
 - [Phase 03]: PipelineStatus placed left of connection indicator in StatusBar with thin vertical divider separator
 - [Phase 03]: Default pipeline state is offline on mount (voice loop only runs on Pi hardware)
+- [Phase 03]: Used subprocess aplay for TTS speaker playback (simpler than sounddevice, no extra dep)
+- [Phase 03]: VoiceLoop in daemon thread with run_coroutine_threadsafe bridge to asyncio (Pi mode only)
+- [Phase 03]: 0.5s cooldown after TTS playback for wake word echo prevention
 
 ### Pending Todos
 
@@ -94,6 +98,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-11T20:40:03.136Z
-Stopped at: Completed 03-02-PLAN.md (awaiting Task 3 human-verify checkpoint)
+Last session: 2026-04-11T20:42:26.529Z
+Stopped at: Completed 03-01-PLAN.md
 Resume file: None
