@@ -81,7 +81,7 @@ class TestDeviceService:
     @pytest.mark.asyncio
     async def test_execute_validates_before_adapter(self, service):
         """Invalid action should be rejected without calling adapter."""
-        svc = await service
+        svc = service
         state, log = await svc.execute_command("fake-lamp-1", "reboot")
         assert state is None
         assert log["status"] == "rejected"
@@ -89,28 +89,28 @@ class TestDeviceService:
     @pytest.mark.asyncio
     async def test_execute_logs_to_command_log(self, service):
         """Successful command should be logged."""
-        svc = await service
+        svc = service
         state, log = await svc.execute_command("fake-lamp-1", "turn_on")
         assert log["status"] == "success"
         assert log["id"] is not None
 
     @pytest.mark.asyncio
     async def test_execute_rejected_unknown_device(self, service):
-        svc = await service
+        svc = service
         state, log = await svc.execute_command("unknown-device", "turn_on")
         assert state is None
         assert log["status"] == "rejected"
 
     @pytest.mark.asyncio
     async def test_execute_success_returns_new_state(self, service):
-        svc = await service
+        svc = service
         state, log = await svc.execute_command("fake-lamp-1", "turn_on")
         assert state is not None
         assert state.is_on is True
 
     @pytest.mark.asyncio
     async def test_execute_unreachable_logs_error(self, service):
-        svc = await service
+        svc = service
         state, log = await svc.execute_command("fake-offline-1", "turn_on")
         assert state is None
         assert log["status"] == "error"
@@ -119,7 +119,7 @@ class TestDeviceService:
     @pytest.mark.asyncio
     async def test_get_state_calls_adapter_live(self, service):
         """get_device_state queries live state per DEVICE-03."""
-        svc = await service
+        svc = service
         state = await svc.get_device_state("fake-lamp-1")
         assert state.device_id == "fake-lamp-1"
         assert state.is_reachable is True
