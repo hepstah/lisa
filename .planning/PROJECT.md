@@ -27,20 +27,19 @@ V1 does not attempt to be a full smart-home hub, a multi-room voice assistant, o
 
 <!-- Shipped and confirmed valuable. -->
 
-(None yet — ship to validate)
+- [x] Detect the wake phrase "Hey Lisa" locally on the Pi with acceptable false-trigger rate in a normal home environment — Validated in Phase 02: voice-pipeline
+- [x] Capture a short utterance after wake word and send it to a cloud STT provider — Validated in Phase 02: voice-pipeline
+- [x] Convert transcribed commands into one of a small set of supported intents using a cloud LLM — Validated in Phase 02: voice-pipeline
+- [x] Speak a short confirmation or error response locally — Validated in Phase 02: voice-pipeline
+- [x] Define explicit failure behavior for no internet, provider timeout, and unknown intent — Validated in Phase 02: voice-pipeline
 
 ### Active
 
 <!-- Current scope. Building toward these. -->
 
-- [ ] Detect the wake phrase "Hey Lisa" locally on the Pi with acceptable false-trigger rate in a normal home environment
-- [ ] Capture a short utterance after wake word and send it to a cloud STT provider
-- [ ] Convert transcribed commands into one of a small set of supported intents using a cloud LLM
-- [ ] Speak a short confirmation or error response locally
 - [ ] Control one concrete initial integration end to end
 - [ ] Provide a dashboard to show assistant status, recent commands, and configured devices
 - [ ] Provide a simple device configuration flow for the initial integration only
-- [ ] Define explicit failure behavior for no internet, provider timeout, and unknown intent
 
 ### Out of Scope
 
@@ -135,4 +134,4 @@ Update this document only when one of these changes:
 5. V1 is complete and the project is ready to expand beyond a single integration
 
 ---
-*Last updated: 2026-04-11 after incorporating execution-safe rewrite*
+*Last updated: 2026-04-11 — Phase 02 (voice-pipeline) complete, voice pipeline requirements validated*
