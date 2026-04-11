@@ -11,8 +11,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **VOICE-01**: Detect the wake phrase "Hey Lisa" locally on the Pi with acceptable false-trigger rate in a normal home environment
 - [x] **VOICE-02**: Capture a short utterance after wake word detection until silence (voice activity detection)
-- [ ] **VOICE-03**: Send captured audio to a cloud STT provider and return transcribed text
-- [ ] **VOICE-04**: Send transcribed text with device context to a cloud LLM and receive a structured JSON intent
+- [x] **VOICE-03**: Send captured audio to a cloud STT provider and return transcribed text
+- [x] **VOICE-04**: Send transcribed text with device context to a cloud LLM and receive a structured JSON intent
 - [x] **VOICE-05**: Speak a short confirmation or error response locally via Piper TTS
 
 ### Device Control
@@ -34,7 +34,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **ERR-01**: Produce spoken feedback for every failure mode: no speech captured, STT timeout, unknown intent, device offline, no internet
 - [x] **ERR-02**: Log all failures in the dashboard with timestamp, failure stage, and error detail
-- [ ] **ERR-03**: Set aggressive timeouts (5s) for cloud STT and LLM calls with immediate spoken fallback on timeout
+- [x] **ERR-03**: Set aggressive timeouts (5s) for cloud STT and LLM calls with immediate spoken fallback on timeout
 - [x] **ERR-04**: Display clear connectivity status when cloud services are unreachable
 
 ### Infrastructure
@@ -90,8 +90,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | VOICE-01 | Phase 2 | Complete |
 | VOICE-02 | Phase 2 | Complete |
-| VOICE-03 | Phase 2 | Pending |
-| VOICE-04 | Phase 2 | Pending |
+| VOICE-03 | Phase 2 | Complete |
+| VOICE-04 | Phase 2 | Complete |
 | VOICE-05 | Phase 2 | Complete |
 | DEVICE-01 | Phase 3 | Pending |
 | DEVICE-02 | Phase 1 | Complete |
@@ -104,7 +104,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DASH-05 | Phase 3 | Pending |
 | ERR-01 | Phase 2 | Pending |
 | ERR-02 | Phase 1 | Complete |
-| ERR-03 | Phase 2 | Pending |
+| ERR-03 | Phase 2 | Complete |
 | ERR-04 | Phase 1 | Complete |
 | INFRA-01 | Phase 1 | Complete |
 | INFRA-02 | Phase 1 | Pending |

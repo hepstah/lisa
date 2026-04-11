@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: Completed 02-02-PLAN.md
-last_updated: "2026-04-11T18:52:52.318Z"
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-04-11T18:54:01.067Z"
 progress:
   total_phases: 3
   completed_phases: 1
   total_plans: 8
-  completed_plans: 6
+  completed_plans: 7
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-04-11)
 ## Current Position
 
 Phase: 02 (voice-pipeline) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 
 ## Performance Metrics
 
@@ -51,6 +51,7 @@ Plan: 2 of 3
 | Phase 01 P04 | 4min | 2 tasks | 7 files |
 | Phase 01 P02 | 6min | 2 tasks | 11 files |
 | Phase 02 P02 | 4min | 2 tasks | 8 files |
+| Phase 02 P01 | 6min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -73,6 +74,8 @@ Recent decisions affecting current work:
 - [Phase 02]: Graceful import pattern for Pi-only deps (piper-tts, openwakeword) with AVAILABLE flags
 - [Phase 02]: hey_jarvis as wake word dev stand-in (custom hey_lisa deferred to v2 per ADV-03)
 - [Phase 02]: Energy-based VAD in AudioCapture with injected audio source (no PyAudio import)
+- [Phase 02]: Used tool_choice auto (not forced) for LLM intent parsing so unknown intents return None per D-20
+- [Phase 02]: Validate API key presence at construction time (not first call) for STT and LLM services per pitfall 4
 
 ### Pending Todos
 
@@ -85,6 +88,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-11T18:52:52.315Z
-Stopped at: Completed 02-02-PLAN.md
+Last session: 2026-04-11T18:54:01.065Z
+Stopped at: Completed 02-01-PLAN.md
 Resume file: None
