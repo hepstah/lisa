@@ -88,34 +88,34 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| VOICE-01 | TBD | Pending |
-| VOICE-02 | TBD | Pending |
-| VOICE-03 | TBD | Pending |
-| VOICE-04 | TBD | Pending |
-| VOICE-05 | TBD | Pending |
-| DEVICE-01 | TBD | Pending |
-| DEVICE-02 | TBD | Pending |
-| DEVICE-03 | TBD | Pending |
-| DEVICE-04 | TBD | Pending |
-| DASH-01 | TBD | Pending |
-| DASH-02 | TBD | Pending |
-| DASH-03 | TBD | Pending |
-| DASH-04 | TBD | Pending |
-| DASH-05 | TBD | Pending |
-| ERR-01 | TBD | Pending |
-| ERR-02 | TBD | Pending |
-| ERR-03 | TBD | Pending |
-| ERR-04 | TBD | Pending |
-| INFRA-01 | TBD | Pending |
-| INFRA-02 | TBD | Pending |
-| INFRA-03 | TBD | Pending |
-| INFRA-04 | TBD | Pending |
+| VOICE-01 | Phase 2 | Pending |
+| VOICE-02 | Phase 2 | Pending |
+| VOICE-03 | Phase 2 | Pending |
+| VOICE-04 | Phase 2 | Pending |
+| VOICE-05 | Phase 2 | Pending |
+| DEVICE-01 | Phase 3 | Pending |
+| DEVICE-02 | Phase 1 | Pending |
+| DEVICE-03 | Phase 1 | Pending |
+| DEVICE-04 | Phase 1 | Pending |
+| DASH-01 | Phase 1 | Pending |
+| DASH-02 | Phase 1 | Pending |
+| DASH-03 | Phase 1 | Pending |
+| DASH-04 | Phase 1 | Pending |
+| DASH-05 | Phase 3 | Pending |
+| ERR-01 | Phase 2 | Pending |
+| ERR-02 | Phase 1 | Pending |
+| ERR-03 | Phase 2 | Pending |
+| ERR-04 | Phase 1 | Pending |
+| INFRA-01 | Phase 1 | Pending |
+| INFRA-02 | Phase 1 | Pending |
+| INFRA-03 | Phase 1 | Pending |
+| INFRA-04 | Phase 1 | Pending |
 
 **Coverage:**
 - v1 requirements: 22 total
-- Mapped to phases: 0
-- Unmapped: 22
+- Mapped to phases: 22
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-04-11*
-*Last updated: 2026-04-11 after initial definition*
+*Last updated: 2026-04-11 after roadmap creation*
