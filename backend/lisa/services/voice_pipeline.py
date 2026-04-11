@@ -6,7 +6,7 @@ Cloud calls enforce 3-second timeouts per ERR-03 (via service constructors).
 
 import logging
 
-from lisa.services.stt_service import STTError, STTTimeoutError, STTService
+from lisa.services.stt_service import STTError, STTTimeoutError, STTNoSpeechError, STTService
 from lisa.services.llm_intent_service import (
     LLMError,
     LLMTimeoutError,
@@ -24,6 +24,7 @@ MSG_UNKNOWN_INTENT = (
 )
 MSG_DEVICE_ERROR = "I had trouble controlling that device. Please try again."
 MSG_DEVICE_UNREACHABLE = "That device doesn't seem to be reachable right now."
+MSG_NO_SPEECH = "I didn't hear anything. Please try again."
 
 
 class VoicePipeline:
@@ -128,6 +129,15 @@ class VoicePipeline:
                 "status": "error",
                 "error_stage": "stt",
                 "error_message": MSG_STT_TIMEOUT,
+                "tts_spoken": True,
+            }
+        except STTNoSpeechError:
+            self._log.info("No speech detected in audio")
+            await self._tts.speak(MSG_NO_SPEECH)
+            return {
+                "status": "error",
+                "error_stage": "stt_no_speech",
+                "error_message": MSG_NO_SPEECH,
                 "tts_spoken": True,
             }
         except STTError:
