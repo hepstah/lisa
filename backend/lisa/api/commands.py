@@ -47,6 +47,33 @@ async def text_command(req: TextCommandRequest):
     """
     if voice_pipeline is not None:
         result = await voice_pipeline.process_text(req.text, source=req.source)
+
+        # Persist pipeline-level errors that bypassed DeviceService.execute_command
+        # (which does its own DB logging). If result already has "id", it was
+        # already logged by device_service._log_command -- skip to avoid double insert.
+        if "id" not in result and result.get("status") in ("error", "rejected"):
+            db = await get_db()
+            try:
+                cursor = await db.execute(
+                    """INSERT INTO command_log
+                       (source, raw_input, device_id, action, status,
+                        error_message, error_stage)
+                       VALUES (?, ?, ?, ?, ?, ?, ?)""",
+                    (
+                        req.source,
+                        req.text,
+                        result.get("device_id"),
+                        result.get("action"),
+                        result["status"],
+                        result.get("error_message"),
+                        result.get("error_stage"),
+                    ),
+                )
+                await db.commit()
+                result["id"] = cursor.lastrowid
+            finally:
+                await db.close()
+
         await manager.broadcast({"type": "command_logged", "command": result})
         return result
 
