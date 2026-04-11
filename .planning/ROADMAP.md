@@ -2,7 +2,7 @@
 
 ## Overview
 
-Three phases that match the architecture's natural build order. Phase 1 delivers working device control and a dashboard — no voice, no problem, everything testable manually. Phase 2 adds the full voice pipeline, isolated so each audio stage can be validated independently. Phase 3 wires them together, verifies the end-to-end experience, and tunes latency until the core value — "say a command, the device responds" — is reliably true.
+Three phases that match the architecture's natural build order. Phase 1 delivers working device control and a dashboard - no voice, no problem, everything testable manually. Phase 2 adds the full voice pipeline, isolated so each audio stage can be validated independently. Phase 3 wires them together, verifies the end-to-end experience, and tunes latency until the core value - "say a command, the device responds" - is reliably true.
 
 ## Phases
 
@@ -28,7 +28,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. A user can add and configure the initial device integration through the dashboard without SSH
   4. Command history shows each action with its success or failure state and a timestamp
   5. All services start automatically on Pi boot and remain running under systemd
-**Plans**: TBD
+**Plans:** 5 plans
+
+Plans:
+- [ ] 01-01-PLAN.md -- Backend core: Python scaffold, config, SQLite, device adapters, device service with allowlist
+- [ ] 01-02-PLAN.md -- Backend API: FastAPI REST endpoints, WebSocket broadcasting, text command parsing
+- [ ] 01-03-PLAN.md -- Frontend scaffold: Vite + React + Tailwind v4 + shadcn, types, API client, data hooks
+- [ ] 01-04-PLAN.md -- Dashboard UI: StatusBar, DeviceCard, DeviceList, CommandHistory, TextCommand, DeviceConfig
+- [ ] 01-05-PLAN.md -- Integration: systemd service, SPA serving, full visual verification checkpoint
 **UI hint**: yes
 
 ### Phase 2: Voice Pipeline
@@ -56,10 +63,10 @@ Decimal phases appear between their surrounding integers in numeric order.
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3
+Phases execute in numeric order: 1 -> 2 -> 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/TBD | Not started | - |
+| 1. Foundation | 0/5 | Planned | - |
 | 2. Voice Pipeline | 0/TBD | Not started | - |
 | 3. Integration | 0/TBD | Not started | - |
