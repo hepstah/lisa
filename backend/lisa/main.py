@@ -1,3 +1,4 @@
+import asyncio
 import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
@@ -84,9 +85,42 @@ async def lifespan(app: FastAPI):
     commands.device_service = svc
     commands.voice_pipeline = voice_pipeline
 
+    # Phase 3: Voice loop (Pi mode only)
+    voice_loop = None
+    if voice_pipeline and not settings.dev_mode:
+        try:
+            from lisa.voice.voice_loop import VoiceLoop
+            from lisa.voice.wake_word import WakeWordDetector
+            from lisa.voice.audio_capture import AudioCapture
+
+            loop = asyncio.get_event_loop()
+
+            async def pipeline_status_callback(status: str):
+                await manager.broadcast({"type": "pipeline_status", "status": status})
+
+            voice_loop = VoiceLoop(
+                wake_detector=WakeWordDetector(),
+                audio_capture=AudioCapture(),
+                pipeline=voice_pipeline,
+                event_loop=loop,
+                status_callback=pipeline_status_callback,
+            )
+            voice_loop.start()
+            logger.info("Voice loop started")
+        except Exception as e:
+            logger.warning("Voice loop unavailable: %s", e)
+    else:
+        if not voice_pipeline:
+            logger.info("Voice loop skipped: voice pipeline not available")
+        elif settings.dev_mode:
+            logger.info("Voice loop skipped: dev mode (use /api/commands/text)")
+
     yield
 
-    # Shutdown (nothing to clean up)
+    # Shutdown
+    if voice_loop:
+        voice_loop.stop()
+        logger.info("Voice loop stopped")
 
 
 app = FastAPI(title="Lisa Smart Home", lifespan=lifespan)
