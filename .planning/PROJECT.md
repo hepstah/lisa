@@ -38,7 +38,7 @@ V1 does not attempt to be a full smart-home hub, a multi-room voice assistant, o
 <!-- Current scope. Building toward these. -->
 
 - [ ] Control one concrete initial integration end to end
-- [ ] Provide a dashboard to show assistant status, recent commands, and configured devices
+- [x] Provide a dashboard to show assistant status, recent commands, and configured devices — Validated in Phase 03: integration
 - [ ] Provide a simple device configuration flow for the initial integration only
 
 ### Out of Scope
@@ -134,4 +134,4 @@ Update this document only when one of these changes:
 5. V1 is complete and the project is ready to expand beyond a single integration
 
 ---
-*Last updated: 2026-04-11 — Phase 02 (voice-pipeline) complete, voice pipeline requirements validated*
+*Last updated: 2026-04-11 — Phase 03 (integration) complete, VoiceLoop wired end-to-end, pipeline status surfaced in dashboard*
