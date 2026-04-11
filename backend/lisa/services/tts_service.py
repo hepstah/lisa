@@ -3,6 +3,7 @@
 import asyncio
 import logging
 import os
+import subprocess
 import time
 import wave
 
@@ -74,7 +75,6 @@ class TTSService:
         if self._dev_mode:
             path = os.path.join(self._output_dir, filename)
         else:
-            # TODO: Pi deployment - play audio through speaker instead of saving to file
             path = os.path.join(self._output_dir, filename)
 
         try:
@@ -82,6 +82,12 @@ class TTSService:
             await loop.run_in_executor(None, self._synthesize_to_file, text, path)
         except Exception as e:
             raise TTSError(f"TTS synthesis failed: {e}") from e
+
+        # Pi mode: play audio through speaker via aplay
+        if not self._dev_mode:
+            await asyncio.to_thread(
+                subprocess.run, ["aplay", "-q", path], check=True, timeout=10
+            )
 
         logger.info("TTS wrote %s", path)
         return path
