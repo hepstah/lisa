@@ -10,5 +10,7 @@ export function usePipelineStatus() {
     }
   }, []);
 
-  return { status, handleWsEvent };
+  const reset = useCallback(() => setStatus("offline"), []);
+
+  return { status, handleWsEvent, reset };
 }

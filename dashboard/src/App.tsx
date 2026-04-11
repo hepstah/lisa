@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import { StatusBar } from "./components/StatusBar";
@@ -32,6 +32,7 @@ function App() {
   const {
     status: pipelineStatus,
     handleWsEvent: handlePipelineWsEvent,
+    reset: resetPipelineStatus,
   } = usePipelineStatus();
 
   const handleWsMessage = useCallback(
@@ -44,6 +45,12 @@ function App() {
   );
 
   const { status: wsStatus } = useWebSocket(handleWsMessage);
+
+  useEffect(() => {
+    if (wsStatus === "disconnected") {
+      resetPipelineStatus();
+    }
+  }, [wsStatus, resetPipelineStatus]);
 
   const handleToggle = async (
     deviceId: string,
