@@ -9,18 +9,18 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Voice Pipeline
 
-- [ ] **VOICE-01**: Detect the wake phrase "Hey Lisa" locally on the Pi with acceptable false-trigger rate in a normal home environment
-- [ ] **VOICE-02**: Capture a short utterance after wake word detection until silence (voice activity detection)
+- [x] **VOICE-01**: Detect the wake phrase "Hey Lisa" locally on the Pi with acceptable false-trigger rate in a normal home environment
+- [x] **VOICE-02**: Capture a short utterance after wake word detection until silence (voice activity detection)
 - [ ] **VOICE-03**: Send captured audio to a cloud STT provider and return transcribed text
 - [ ] **VOICE-04**: Send transcribed text with device context to a cloud LLM and receive a structured JSON intent
-- [ ] **VOICE-05**: Speak a short confirmation or error response locally via Piper TTS
+- [x] **VOICE-05**: Speak a short confirmation or error response locally via Piper TTS
 
 ### Device Control
 
 - [ ] **DEVICE-01**: Control one concrete device integration end-to-end via voice command
 - [x] **DEVICE-02**: Validate all LLM intent output against an allowlist of known devices and supported actions before execution
 - [x] **DEVICE-03**: Query actual device state before executing commands (not cached state)
-- [ ] **DEVICE-04**: Expose REST API endpoints for external tools to trigger device actions
+- [x] **DEVICE-04**: Expose REST API endpoints for external tools to trigger device actions
 
 ### Dashboard
 
@@ -88,15 +88,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| VOICE-01 | Phase 2 | Pending |
-| VOICE-02 | Phase 2 | Pending |
+| VOICE-01 | Phase 2 | Complete |
+| VOICE-02 | Phase 2 | Complete |
 | VOICE-03 | Phase 2 | Pending |
 | VOICE-04 | Phase 2 | Pending |
-| VOICE-05 | Phase 2 | Pending |
+| VOICE-05 | Phase 2 | Complete |
 | DEVICE-01 | Phase 3 | Pending |
 | DEVICE-02 | Phase 1 | Complete |
 | DEVICE-03 | Phase 1 | Complete |
-| DEVICE-04 | Phase 1 | Pending |
+| DEVICE-04 | Phase 1 | Complete |
 | DASH-01 | Phase 1 | Complete |
 | DASH-02 | Phase 1 | Complete |
 | DASH-03 | Phase 1 | Complete |

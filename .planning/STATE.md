@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to plan
-stopped_at: 01-05 Task 1 complete, checkpoint at Task 2 (human-verify)
-last_updated: "2026-04-11T18:16:01.080Z"
+status: Ready to execute
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-04-11T18:52:52.318Z"
 progress:
   total_phases: 3
   completed_phases: 1
-  total_plans: 5
-  completed_plans: 5
+  total_plans: 8
+  completed_plans: 6
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-11)
 
 **Core value:** Say "Hey Lisa, turn off the bedroom lamp" and the lamp turns off quickly and predictably.
-**Current focus:** Phase 01 — foundation
+**Current focus:** Phase 02 — voice-pipeline
 
 ## Current Position
 
-Phase: 2
-Plan: Not started
+Phase: 02 (voice-pipeline) — EXECUTING
+Plan: 2 of 3
 
 ## Performance Metrics
 
@@ -50,6 +50,7 @@ Plan: Not started
 | Phase 01 P03 | 6 | 2 tasks | 33 files |
 | Phase 01 P04 | 4min | 2 tasks | 7 files |
 | Phase 01 P02 | 6min | 2 tasks | 11 files |
+| Phase 02 P02 | 4min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -69,6 +70,9 @@ Recent decisions affecting current work:
 - [Phase 01]: Used LifespanManager from asgi-lifespan for test client to properly trigger FastAPI lifespan events
 - [Phase 01]: Used temp file DB for tests instead of :memory: (in-memory SQLite creates independent DBs per connection)
 - [Phase 01]: Module-level service injection pattern: lifespan sets device_service on router modules directly
+- [Phase 02]: Graceful import pattern for Pi-only deps (piper-tts, openwakeword) with AVAILABLE flags
+- [Phase 02]: hey_jarvis as wake word dev stand-in (custom hey_lisa deferred to v2 per ADV-03)
+- [Phase 02]: Energy-based VAD in AudioCapture with injected audio source (no PyAudio import)
 
 ### Pending Todos
 
@@ -81,6 +85,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-11T18:05:54.237Z
-Stopped at: 01-05 Task 1 complete, checkpoint at Task 2 (human-verify)
+Last session: 2026-04-11T18:52:52.315Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None
