@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to plan
-stopped_at: Completed 02-04-PLAN.md
-last_updated: "2026-04-11T19:52:21.032Z"
+status: Ready to execute
+stopped_at: Completed 03-02-PLAN.md (awaiting Task 3 human-verify checkpoint)
+last_updated: "2026-04-11T20:40:03.138Z"
 progress:
   total_phases: 3
   completed_phases: 2
-  total_plans: 9
-  completed_plans: 9
+  total_plans: 11
+  completed_plans: 10
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-11)
 
 **Core value:** Say "Hey Lisa, turn off the bedroom lamp" and the lamp turns off quickly and predictably.
-**Current focus:** Phase 02 — voice-pipeline
+**Current focus:** Phase 03 — integration
 
 ## Current Position
 
-Phase: 3
-Plan: Not started
+Phase: 03 (integration) — EXECUTING
+Plan: 2 of 2
 
 ## Performance Metrics
 
@@ -53,6 +53,7 @@ Plan: Not started
 | Phase 02 P02 | 4min | 2 tasks | 8 files |
 | Phase 02 P01 | 6min | 2 tasks | 6 files |
 | Phase 02 P04 | 3min | 2 tasks | 5 files |
+| Phase 03 P02 | 2min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,8 @@ Recent decisions affecting current work:
 - [Phase 02]: Validate API key presence at construction time (not first call) for STT and LLM services per pitfall 4
 - [Phase 02]: STTNoSpeechError placed before STTError in except chain (subclass-first ordering)
 - [Phase 02]: Pipeline error DB insert guarded by 'id' not in result to avoid double-insert with DeviceService._log_command
+- [Phase 03]: PipelineStatus placed left of connection indicator in StatusBar with thin vertical divider separator
+- [Phase 03]: Default pipeline state is offline on mount (voice loop only runs on Pi hardware)
 
 ### Pending Todos
 
@@ -91,6 +94,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-11T19:46:34.883Z
-Stopped at: Completed 02-04-PLAN.md
+Last session: 2026-04-11T20:40:03.136Z
+Stopped at: Completed 03-02-PLAN.md (awaiting Task 3 human-verify checkpoint)
 Resume file: None

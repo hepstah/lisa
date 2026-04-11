@@ -28,7 +28,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **DASH-02**: Show command history with success/failure states and timestamps
 - [x] **DASH-03**: Provide device configuration flow for the initial integration without requiring SSH or shell access
 - [x] **DASH-04**: Accept typed text commands as an alternative to voice input
-- [ ] **DASH-05**: Show assistant pipeline status (listening, processing, responding, error, offline)
+- [x] **DASH-05**: Show assistant pipeline status (listening, processing, responding, error, offline)
 
 ### Error Handling
 
@@ -101,7 +101,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DASH-02 | Phase 1 | Complete |
 | DASH-03 | Phase 1 | Complete |
 | DASH-04 | Phase 1 | Complete |
-| DASH-05 | Phase 3 | Pending |
+| DASH-05 | Phase 3 | Complete |
 | ERR-01 | Phase 2 | Complete |
 | ERR-02 | Phase 1 | Complete |
 | ERR-03 | Phase 2 | Complete |
