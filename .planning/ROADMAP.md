@@ -48,7 +48,13 @@ Plans:
   3. The transcribed text is sent to a cloud LLM and returns a structured JSON intent within the timeout window
   4. Lisa speaks a clear confirmation or error response locally within the latency budget
   5. Every failure mode (no speech detected, STT timeout, unknown intent) produces an audible spoken error
-**Plans**: TBD
+**Plans:** 4 plans
+
+Plans:
+- [x] 02-01-PLAN.md -- Cloud services: STT (OpenAI Whisper) and LLM intent parsing (Anthropic Claude Haiku 4.5)
+- [x] 02-02-PLAN.md -- TTS (Piper), wake word detection (openWakeWord), audio capture with VAD
+- [x] 02-03-PLAN.md -- Voice pipeline orchestrator, FastAPI lifespan wiring, text command LLM path
+- [ ] 02-04-PLAN.md -- Gap closure: fix no-speech error message, persist pipeline errors to command_log
 
 ### Phase 3: Integration
 **Goal**: A voice command controls a real device end-to-end and the dashboard reflects the full pipeline state
@@ -68,5 +74,5 @@ Phases execute in numeric order: 1 -> 2 -> 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 0/5 | Planned | - |
-| 2. Voice Pipeline | 0/TBD | Not started | - |
+| 2. Voice Pipeline | 3/4 | Executing | - |
 | 3. Integration | 0/TBD | Not started | - |
