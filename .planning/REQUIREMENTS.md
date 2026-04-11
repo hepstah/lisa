@@ -26,16 +26,16 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **DASH-01**: Display current device status (on/off, reachable/unreachable) with real-time updates via WebSocket
 - [x] **DASH-02**: Show command history with success/failure states and timestamps
-- [ ] **DASH-03**: Provide device configuration flow for the initial integration without requiring SSH or shell access
-- [ ] **DASH-04**: Accept typed text commands as an alternative to voice input
+- [x] **DASH-03**: Provide device configuration flow for the initial integration without requiring SSH or shell access
+- [x] **DASH-04**: Accept typed text commands as an alternative to voice input
 - [ ] **DASH-05**: Show assistant pipeline status (listening, processing, responding, error, offline)
 
 ### Error Handling
 
 - [ ] **ERR-01**: Produce spoken feedback for every failure mode: no speech captured, STT timeout, unknown intent, device offline, no internet
-- [ ] **ERR-02**: Log all failures in the dashboard with timestamp, failure stage, and error detail
+- [x] **ERR-02**: Log all failures in the dashboard with timestamp, failure stage, and error detail
 - [ ] **ERR-03**: Set aggressive timeouts (5s) for cloud STT and LLM calls with immediate spoken fallback on timeout
-- [ ] **ERR-04**: Display clear connectivity status when cloud services are unreachable
+- [x] **ERR-04**: Display clear connectivity status when cloud services are unreachable
 
 ### Infrastructure
 
@@ -99,13 +99,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DEVICE-04 | Phase 1 | Pending |
 | DASH-01 | Phase 1 | Complete |
 | DASH-02 | Phase 1 | Complete |
-| DASH-03 | Phase 1 | Pending |
-| DASH-04 | Phase 1 | Pending |
+| DASH-03 | Phase 1 | Complete |
+| DASH-04 | Phase 1 | Complete |
 | DASH-05 | Phase 3 | Pending |
 | ERR-01 | Phase 2 | Pending |
-| ERR-02 | Phase 1 | Pending |
+| ERR-02 | Phase 1 | Complete |
 | ERR-03 | Phase 2 | Pending |
-| ERR-04 | Phase 1 | Pending |
+| ERR-04 | Phase 1 | Complete |
 | INFRA-01 | Phase 1 | Complete |
 | INFRA-02 | Phase 1 | Pending |
 | INFRA-03 | Phase 1 | Complete |

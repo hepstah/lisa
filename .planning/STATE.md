@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: Completed 01-03-PLAN.md
-last_updated: "2026-04-11T17:50:21.541Z"
+stopped_at: Completed 01-04-PLAN.md
+last_updated: "2026-04-11T17:58:21.622Z"
 progress:
   total_phases: 3
   completed_phases: 0
   total_plans: 5
-  completed_plans: 1
+  completed_plans: 3
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-04-11)
 ## Current Position
 
 Phase: 01 (foundation) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 
 ## Performance Metrics
 
@@ -48,6 +48,7 @@ Plan: 3 of 5
 *Updated after each plan completion*
 | Phase 01 P01 | 5min | 2 tasks | 18 files |
 | Phase 01 P03 | 6 | 2 tasks | 33 files |
+| Phase 01 P04 | 4min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -62,6 +63,8 @@ Recent decisions affecting current work:
 - [Phase 01]: Used setuptools.build_meta backend (plan had incorrect _legacy path)
 - [Phase 01]: DeviceState as frozen dataclass in interface.py, DeviceStateResponse as Pydantic model in models.py -- separate adapter vs API concerns
 - [Phase 01]: TypeScript 6 paths without baseUrl (deprecated); simplified hook wiring with handleWsEvent callbacks
+- [Phase 01]: Adapted App.tsx hook wiring to Plan 03 handleWsEvent callback pattern instead of wsHandler/listeners
+- [Phase 01]: TextCommand re-throws errors so input retains text on failure; used Lightbulb icon for device cards
 
 ### Pending Todos
 
@@ -74,6 +77,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-11T17:50:21.538Z
-Stopped at: Completed 01-03-PLAN.md
+Last session: 2026-04-11T17:58:21.620Z
+Stopped at: Completed 01-04-PLAN.md
 Resume file: None
