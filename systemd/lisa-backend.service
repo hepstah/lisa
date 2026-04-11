@@ -1,0 +1,16 @@
+[Unit]
+Description=Lisa Smart Home Backend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/lisa/backend
+ExecStart=/home/pi/lisa/backend/.venv/bin/uvicorn lisa.main:app --host 0.0.0.0 --port 8000
+Restart=on-failure
+RestartSec=5
+Environment=LISA_DEV_MODE=false
+
+[Install]
+WantedBy=multi-user.target
