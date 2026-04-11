@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     kasa_username: str = ""
     kasa_password: str = ""
     host: str = "0.0.0.0"
-    port: int = 8000
+    port: int = 8001
 
     model_config = {"env_prefix": "LISA_", "env_file": ".env"}
 

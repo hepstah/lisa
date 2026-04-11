@@ -7,7 +7,7 @@ Wants=network-online.target
 Type=simple
 User=pi
 WorkingDirectory=/home/pi/lisa/backend
-ExecStart=/home/pi/lisa/backend/.venv/bin/uvicorn lisa.main:app --host 0.0.0.0 --port 8000
+ExecStart=/home/pi/lisa/backend/.venv/bin/uvicorn lisa.main:app --host 0.0.0.0 --port 8001
 Restart=on-failure
 RestartSec=5
 Environment=LISA_DEV_MODE=false
