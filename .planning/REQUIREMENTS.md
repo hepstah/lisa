@@ -32,7 +32,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Error Handling
 
-- [ ] **ERR-01**: Produce spoken feedback for every failure mode: no speech captured, STT timeout, unknown intent, device offline, no internet
+- [x] **ERR-01**: Produce spoken feedback for every failure mode: no speech captured, STT timeout, unknown intent, device offline, no internet
 - [x] **ERR-02**: Log all failures in the dashboard with timestamp, failure stage, and error detail
 - [x] **ERR-03**: Set aggressive timeouts (5s) for cloud STT and LLM calls with immediate spoken fallback on timeout
 - [x] **ERR-04**: Display clear connectivity status when cloud services are unreachable
@@ -102,7 +102,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DASH-03 | Phase 1 | Complete |
 | DASH-04 | Phase 1 | Complete |
 | DASH-05 | Phase 3 | Pending |
-| ERR-01 | Phase 2 | Pending |
+| ERR-01 | Phase 2 | Complete |
 | ERR-02 | Phase 1 | Complete |
 | ERR-03 | Phase 2 | Complete |
 | ERR-04 | Phase 1 | Complete |

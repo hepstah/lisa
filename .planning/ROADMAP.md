@@ -54,7 +54,7 @@ Plans:
 - [x] 02-01-PLAN.md -- Cloud services: STT (OpenAI Whisper) and LLM intent parsing (Anthropic Claude Haiku 4.5)
 - [x] 02-02-PLAN.md -- TTS (Piper), wake word detection (openWakeWord), audio capture with VAD
 - [x] 02-03-PLAN.md -- Voice pipeline orchestrator, FastAPI lifespan wiring, text command LLM path
-- [ ] 02-04-PLAN.md -- Gap closure: fix no-speech error message, persist pipeline errors to command_log
+- [x] 02-04-PLAN.md -- Gap closure: fix no-speech error message, persist pipeline errors to command_log
 
 ### Phase 3: Integration
 **Goal**: A voice command controls a real device end-to-end and the dashboard reflects the full pipeline state
