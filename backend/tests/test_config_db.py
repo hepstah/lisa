@@ -1,5 +1,6 @@
 """Tests for config, database, and models -- Task 1 TDD."""
 import os
+import tempfile
 import pytest
 
 # Force test-safe settings before any lisa imports
@@ -36,6 +37,18 @@ class TestSettings:
 
 
 class TestDatabase:
+    @pytest.fixture(autouse=True)
+    def _use_file_db(self, monkeypatch, tmp_path):
+        """Use a file-based DB so WAL mode and cross-connection persistence work."""
+        db_file = str(tmp_path / "test.db")
+        monkeypatch.setenv("LISA_DB_PATH", db_file)
+        from lisa.config import Settings
+
+        test_settings = Settings()
+        import lisa.db as db_mod
+
+        monkeypatch.setattr(db_mod, "settings", test_settings)
+
     @pytest.mark.asyncio
     async def test_get_db_returns_wal_mode(self):
         from lisa.db import get_db
