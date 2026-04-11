@@ -2,7 +2,18 @@
   "permissions": {
     "allow": [
       "Bash(node __TRACKED_VAR__/.claude/get-shit-done/bin/gsd-tools.cjs generate-claude-md)",
-      "Bash(echo \"exit: $?\")"
+      "Bash(echo \"exit: $?\")",
+      "Bash(git push:*)",
+      "Skill(gsd:plan-phase)",
+      "WebSearch",
+      "Skill(gsd:execute-phase)",
+      "Bash(uv run:*)",
+      "Bash(node __TRACKED_VAR__/.claude/get-shit-done/bin/gsd-tools.cjs verify key-links .planning/phases/02-voice-pipeline/02-03-PLAN.md)",
+      "Bash(node __TRACKED_VAR__/.claude/get-shit-done/bin/gsd-tools.cjs roadmap update-plan-progress --phase 02 --plan 03 --status complete)",
+      "Bash(node __TRACKED_VAR__/.claude/get-shit-done/bin/gsd-tools.cjs roadmap update-plan-progress 02 03 complete)",
+      "Bash(node:*)",
+      "Bash(ls E:/dev/lisa/.planning/phases/01-foundation/*-SUMMARY.md)",
+      "Bash(ls E:/dev/lisa/.planning/phases/02-voice-pipeline/*-SUMMARY.md)"
     ]
   }
 }

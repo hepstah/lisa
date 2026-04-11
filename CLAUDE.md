@@ -32,6 +32,7 @@ Current priority order:
 7. If a task crosses multiple subsystems, propose the interface first.
 8. Be skeptical of abstractions, layers, and configuration that are not yet justified.
 9. Favor elegant code paths with fewer moving parts over flexible but premature designs.
+10. Use ASCII-only punctuation in repo markdown and instructions; avoid smart quotes, em dashes, arrows, and decorative block characters.
 
 ## Default Bias
 
@@ -90,6 +91,16 @@ That means:
 - explicit failure behavior is better than silent fallback
 - a reproducible local dev loop is more important than Pi-only polish
 - the simplest correct design is preferred, even if it feels less future-proof
+
+## Current Project Constraints
+
+These are active decisions for the current planning and implementation cycle:
+
+- Typed text commands are a local-development and testing aid, not a core v1 product feature.
+- Device discovery is not required for v1 unless the chosen initial integration proves it is unavoidable.
+- External REST control for third-party tools is not part of v1 core scope; do not expand the API surface before the main assistant flow works.
+- Push back on Phase 1 UI work that assumes a generalized device onboarding flow or a broad dashboard surface before the initial integration is chosen.
+- If a UI artifact conflicts with the current narrowed scope, narrow or defer the UI artifact instead of broadening the product.
 
 ## Review Posture
 
@@ -181,9 +192,9 @@ Lisa is a single-home, voice-triggered smart-home assistant running on a Raspber
 | Docker Compose | Alternative | Cleaner isolation but adds memory overhead on 4GB Pi. |
 | PM2 | Avoid | Node.js process manager, wrong ecosystem. |
 ## Language & Runtime
-- **Primary language:** Python 3.11+ — unifies voice pipeline, LLM integration, device control, and web backend
+- **Primary language:** Python 3.11+ - unifies voice pipeline, LLM integration, device control, and web backend
 - **Frontend:** TypeScript + React for dashboard
-- **System:** Raspberry Pi OS (64-bit, Lite) — no desktop environment needed
+- **System:** Raspberry Pi OS (64-bit, Lite) - no desktop environment needed
 ## Memory Budget (Pi 5, 4GB)
 | Component | Estimated RAM |
 |-----------|--------------|

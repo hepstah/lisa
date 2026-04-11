@@ -12,6 +12,7 @@ This repo may be worked on by multiple AI agents in parallel. The point of this 
 6. Prefer additive patches over opportunistic refactors.
 7. Shared contracts should be written down before multiple agents implement against them.
 8. Optimize for local-dev testability before hardware-specific behavior.
+9. Use ASCII-only punctuation in repo markdown and instructions to avoid encoding corruption across tools.
 
 ## Recommended Division Of Labor
 
@@ -63,14 +64,14 @@ Rules for handoffs:
 Use this message in another terminal when working with a second agent:
 
 ```text
-We’re sharing the same repo. I want you to act as a parallel collaborator, not an independent planner.
+We're sharing the same repo. I want you to act as a parallel collaborator, not an independent planner.
 
 Rules:
 1. Do not rewrite broad architecture unless asked.
 2. Claim a narrow area before editing.
 3. Report findings before making big changes.
 4. If you touch files, list exact files changed.
-5. Do not revert edits you didn’t make.
+5. Do not revert edits you didn't make.
 6. If you see my changes, adapt to them instead of replacing them.
 7. Prefer additive patches over refactors unless the refactor is the task.
 8. End every update with:
@@ -90,6 +91,13 @@ Prefer work in this order:
 2. Interface boundaries between trigger, STT, intent parsing, device control, and TTS
 3. Dashboard visibility and interaction history
 4. Hardware-specific Pi behavior
+
+Current scope guardrails:
+
+- Treat typed text commands as a testing path, not a core v1 product commitment.
+- Do not add generic device discovery flow to v1 unless the selected first integration requires it.
+- Do not add external-tool REST control before the core assistant flow works end to end.
+- Push back on Phase 1 UI work that bakes in broad device onboarding or generalized dashboard requirements too early.
 
 Good candidate split:
 
