@@ -13,7 +13,7 @@ from lisa.services.voice_pipeline import (
     MSG_DEVICE_UNREACHABLE,
 )
 from lisa.services.llm_intent_service import DeviceIntent, LLMTimeoutError, LLMError
-from lisa.services.stt_service import STTTimeoutError, STTError
+from lisa.services.stt_service import STTTimeoutError, STTError, STTNoSpeechError
 
 
 @pytest.fixture
@@ -228,4 +228,22 @@ async def test_process_text_device_unreachable(
 
     mock_tts.speak.assert_awaited_once_with(MSG_DEVICE_UNREACHABLE)
     assert result["status"] == "error"
+    assert result["tts_spoken"] is True
+
+
+@pytest.mark.asyncio
+async def test_process_audio_no_speech(pipeline, mock_stt, mock_tts):
+    """No speech in audio -> TTS(no speech message) -> error with stt_no_speech stage."""
+    from lisa.services.voice_pipeline import MSG_NO_SPEECH
+
+    mock_stt.transcribe = AsyncMock(
+        side_effect=STTNoSpeechError("No speech detected in audio")
+    )
+
+    result = await pipeline.process_audio(b"silent-audio-bytes")
+
+    mock_tts.speak.assert_awaited_once_with(MSG_NO_SPEECH)
+    assert result["status"] == "error"
+    assert result["error_stage"] == "stt_no_speech"
+    assert result["error_message"] == "I didn't hear anything. Please try again."
     assert result["tts_spoken"] is True

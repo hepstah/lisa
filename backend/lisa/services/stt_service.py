@@ -18,6 +18,12 @@ class STTTimeoutError(STTError):
     pass
 
 
+class STTNoSpeechError(STTError):
+    """Raised when STT detects no speech in audio."""
+
+    pass
+
+
 class STTService:
     """Transcribe audio bytes to text via OpenAI Whisper API."""
 
@@ -62,5 +68,5 @@ class STTService:
 
         result = transcript.strip()
         if not result:
-            raise STTError("No speech detected in audio")
+            raise STTNoSpeechError("No speech detected in audio")
         return result
