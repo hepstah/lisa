@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to execute
-stopped_at: Completed 01-04-PLAN.md
-last_updated: "2026-04-11T17:58:21.622Z"
+status: Ready to plan
+stopped_at: 01-05 Task 1 complete, checkpoint at Task 2 (human-verify)
+last_updated: "2026-04-11T18:16:01.080Z"
 progress:
   total_phases: 3
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 5
-  completed_plans: 3
+  completed_plans: 5
 ---
 
 # Project State
@@ -23,8 +23,8 @@ See: .planning/PROJECT.md (updated 2026-04-11)
 
 ## Current Position
 
-Phase: 01 (foundation) — EXECUTING
-Plan: 4 of 5
+Phase: 2
+Plan: Not started
 
 ## Performance Metrics
 
@@ -49,6 +49,7 @@ Plan: 4 of 5
 | Phase 01 P01 | 5min | 2 tasks | 18 files |
 | Phase 01 P03 | 6 | 2 tasks | 33 files |
 | Phase 01 P04 | 4min | 2 tasks | 7 files |
+| Phase 01 P02 | 6min | 2 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -65,6 +66,9 @@ Recent decisions affecting current work:
 - [Phase 01]: TypeScript 6 paths without baseUrl (deprecated); simplified hook wiring with handleWsEvent callbacks
 - [Phase 01]: Adapted App.tsx hook wiring to Plan 03 handleWsEvent callback pattern instead of wsHandler/listeners
 - [Phase 01]: TextCommand re-throws errors so input retains text on failure; used Lightbulb icon for device cards
+- [Phase 01]: Used LifespanManager from asgi-lifespan for test client to properly trigger FastAPI lifespan events
+- [Phase 01]: Used temp file DB for tests instead of :memory: (in-memory SQLite creates independent DBs per connection)
+- [Phase 01]: Module-level service injection pattern: lifespan sets device_service on router modules directly
 
 ### Pending Todos
 
@@ -77,6 +81,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-11T17:58:21.620Z
-Stopped at: Completed 01-04-PLAN.md
+Last session: 2026-04-11T18:05:54.237Z
+Stopped at: 01-05 Task 1 complete, checkpoint at Task 2 (human-verify)
 Resume file: None
