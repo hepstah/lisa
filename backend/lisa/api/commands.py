@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from fastapi import APIRouter
 from lisa.models import TextCommandRequest, CommandRecord
 from lisa.api.ws import manager
@@ -7,6 +9,11 @@ router = APIRouter(prefix="/api/commands", tags=["commands"])
 
 device_service = None  # Set in main.py
 voice_pipeline = None  # Set in main.py (Phase 2)
+
+
+def _now_iso() -> str:
+    """ISO-8601 UTC timestamp with trailing Z, matching db.py defaults."""
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 @router.get("/history", response_model=list[CommandRecord])
@@ -74,6 +81,7 @@ async def text_command(req: TextCommandRequest):
             finally:
                 await db.close()
 
+        result.setdefault("timestamp", _now_iso())
         await manager.broadcast({"type": "command_logged", "command": result})
         return result
 
@@ -152,6 +160,7 @@ async def _log_unknown(text: str, source: str) -> dict:
         await db.commit()
         return {
             "id": cursor.lastrowid,
+            "timestamp": _now_iso(),
             "source": source,
             "raw_input": text,
             "status": "rejected",
@@ -173,6 +182,7 @@ async def _log_no_match(text: str, source: str, query: str) -> dict:
         await db.commit()
         return {
             "id": cursor.lastrowid,
+            "timestamp": _now_iso(),
             "source": source,
             "raw_input": text,
             "status": "rejected",
