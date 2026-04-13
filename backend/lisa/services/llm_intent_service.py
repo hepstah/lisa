@@ -28,6 +28,18 @@ class DeviceIntent:
     confirmation: str  # e.g. "Turning on the bedroom lamp"
 
 
+@dataclass
+class IntentResult:
+    """Intent parse result plus a dev-mode debug blob.
+
+    debug is always populated, whether intent is present or not. The voice
+    pipeline only persists it when settings.dev_mode is True.
+    """
+
+    intent: Optional[DeviceIntent]
+    debug: dict
+
+
 DEVICE_CONTROL_TOOL = {
     "name": "control_device",
     "description": (
@@ -78,15 +90,17 @@ class LLMIntentService:
 
     async def parse_intent(
         self, text: str, devices: list[dict]
-    ) -> Optional[DeviceIntent]:
-        """Parse user text into a DeviceIntent or None for unknown intents.
+    ) -> IntentResult:
+        """Parse user text into an IntentResult.
 
         Args:
             text: Transcribed user speech.
             devices: List of dicts with device_id, alias, is_on keys.
 
         Returns:
-            DeviceIntent if a device control action was identified, None otherwise.
+            IntentResult with .intent (DeviceIntent or None) and .debug dict.
+            The debug dict is always populated; the voice pipeline decides
+            whether to persist it based on settings.dev_mode.
 
         Raises:
             LLMTimeoutError: If the API call exceeds the configured timeout.
@@ -120,11 +134,44 @@ class LLMIntentService:
         except anthropic.APIError as e:
             raise LLMError(f"Intent parsing failed: {e}")
 
+        intent: Optional[DeviceIntent] = None
+        decision: dict = {}
         for block in response.content:
             if block.type == "tool_use" and block.name == "control_device":
-                return DeviceIntent(
+                intent = DeviceIntent(
                     device_id=block.input["device_id"],
                     action=block.input["action"],
                     confirmation=block.input["confirmation"],
                 )
-        return None
+                decision = {
+                    "tool_used": True,
+                    "device_id": intent.device_id,
+                    "action": intent.action,
+                    "confirmation": intent.confirmation,
+                }
+                break
+
+        if intent is None:
+            text_content = ""
+            for block in response.content:
+                if getattr(block, "type", None) == "text":
+                    text_content = getattr(block, "text", "") or ""
+                    break
+            decision = {"tool_used": False, "text": text_content}
+
+        usage_obj = getattr(response, "usage", None)
+        usage = {
+            "input_tokens": getattr(usage_obj, "input_tokens", 0) if usage_obj else 0,
+            "output_tokens": getattr(usage_obj, "output_tokens", 0) if usage_obj else 0,
+        }
+        stop_reason = getattr(response, "stop_reason", None)
+
+        debug = {
+            "input_text": text,
+            "devices_seen": devices,
+            "decision": decision,
+            "usage": usage,
+            "stop_reason": stop_reason,
+        }
+
+        return IntentResult(intent=intent, debug=debug)

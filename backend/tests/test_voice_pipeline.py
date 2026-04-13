@@ -1,5 +1,7 @@
 """Tests for voice pipeline orchestrator. Every test verifies TTS.speak() was called (ERR-01)."""
 
+import json
+
 import pytest
 from unittest.mock import AsyncMock, Mock
 
@@ -12,8 +14,35 @@ from lisa.services.voice_pipeline import (
     MSG_DEVICE_ERROR,
     MSG_DEVICE_UNREACHABLE,
 )
-from lisa.services.llm_intent_service import DeviceIntent, LLMTimeoutError, LLMError
+from lisa.services.llm_intent_service import (
+    DeviceIntent,
+    IntentResult,
+    LLMTimeoutError,
+    LLMError,
+)
 from lisa.services.stt_service import STTTimeoutError, STTError, STTNoSpeechError
+
+
+def _sample_debug(text="turn on the bedroom lamp", tool_used=True):
+    """Build a sample debug dict matching the shape parse_intent now returns."""
+    if tool_used:
+        decision = {
+            "tool_used": True,
+            "device_id": "fake-lamp-1",
+            "action": "turn_on",
+            "confirmation": "Turning on the bedroom lamp",
+        }
+    else:
+        decision = {"tool_used": False, "text": "unknown"}
+    return {
+        "input_text": text,
+        "devices_seen": [
+            {"device_id": "fake-lamp-1", "alias": "Bedroom Lamp", "is_on": False}
+        ],
+        "decision": decision,
+        "usage": {"input_tokens": 100, "output_tokens": 25},
+        "stop_reason": "tool_use" if tool_used else "end_turn",
+    }
 
 
 @pytest.fixture
@@ -27,10 +56,13 @@ def mock_stt():
 def mock_llm():
     llm = AsyncMock()
     llm.parse_intent = AsyncMock(
-        return_value=DeviceIntent(
-            device_id="fake-lamp-1",
-            action="turn_on",
-            confirmation="Turning on the bedroom lamp",
+        return_value=IntentResult(
+            intent=DeviceIntent(
+                device_id="fake-lamp-1",
+                action="turn_on",
+                confirmation="Turning on the bedroom lamp",
+            ),
+            debug=_sample_debug(),
         )
     )
     return llm
@@ -88,12 +120,14 @@ async def test_process_text_success(pipeline, mock_llm, mock_tts, mock_device_se
     result = await pipeline.process_text("turn on the bedroom lamp")
 
     mock_llm.parse_intent.assert_awaited_once()
-    mock_device_service.execute_command.assert_awaited_once_with(
-        device_id="fake-lamp-1",
-        action="turn_on",
-        source="voice",
-        raw_input="turn on the bedroom lamp",
-    )
+    mock_device_service.execute_command.assert_awaited_once()
+    call_kwargs = mock_device_service.execute_command.await_args.kwargs
+    assert call_kwargs["device_id"] == "fake-lamp-1"
+    assert call_kwargs["action"] == "turn_on"
+    assert call_kwargs["source"] == "voice"
+    assert call_kwargs["raw_input"] == "turn on the bedroom lamp"
+    # llm_debug kwarg is present; dev_mode default is True so it is a string
+    assert "llm_debug" in call_kwargs
     mock_tts.speak.assert_awaited_once_with("Turning on the bedroom lamp")
     assert result["status"] == "success"
     assert result["tts_spoken"] is True
@@ -101,8 +135,12 @@ async def test_process_text_success(pipeline, mock_llm, mock_tts, mock_device_se
 
 @pytest.mark.asyncio
 async def test_process_text_unknown_intent(pipeline, mock_llm, mock_tts):
-    """LLM returns None -> TTS(unknown intent message) -> rejected."""
-    mock_llm.parse_intent = AsyncMock(return_value=None)
+    """LLM returns IntentResult(intent=None) -> TTS(unknown intent) -> rejected."""
+    mock_llm.parse_intent = AsyncMock(
+        return_value=IntentResult(
+            intent=None, debug=_sample_debug(text="what is the weather?", tool_used=False)
+        )
+    )
 
     result = await pipeline.process_text("what is the weather?")
 
@@ -247,3 +285,36 @@ async def test_process_audio_no_speech(pipeline, mock_stt, mock_tts):
     assert result["error_stage"] == "stt_no_speech"
     assert result["error_message"] == "I didn't hear anything. Please try again."
     assert result["tts_spoken"] is True
+
+
+@pytest.mark.asyncio
+async def test_dev_mode_captures_llm_debug(
+    pipeline, mock_device_service, monkeypatch
+):
+    """settings.dev_mode = True -> llm_debug kwarg is a valid JSON string."""
+    monkeypatch.setattr("lisa.services.voice_pipeline.settings.dev_mode", True)
+
+    await pipeline.process_text("turn on the bedroom lamp")
+
+    call_kwargs = mock_device_service.execute_command.await_args.kwargs
+    llm_debug = call_kwargs["llm_debug"]
+    assert isinstance(llm_debug, str)
+    parsed = json.loads(llm_debug)
+    assert "input_text" in parsed
+    assert "devices_seen" in parsed
+    assert "decision" in parsed
+    assert "usage" in parsed
+    assert "stop_reason" in parsed
+
+
+@pytest.mark.asyncio
+async def test_prod_mode_skips_llm_debug(
+    pipeline, mock_device_service, monkeypatch
+):
+    """settings.dev_mode = False -> llm_debug kwarg is None."""
+    monkeypatch.setattr("lisa.services.voice_pipeline.settings.dev_mode", False)
+
+    await pipeline.process_text("turn on the bedroom lamp")
+
+    call_kwargs = mock_device_service.execute_command.await_args.kwargs
+    assert call_kwargs["llm_debug"] is None

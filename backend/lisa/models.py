@@ -29,6 +29,7 @@ class CommandRecord(BaseModel):
     error_message: Optional[str] = None
     error_stage: Optional[str] = None
     duration_ms: Optional[int] = None
+    llm_debug: Optional[dict] = None
 
 
 class DeviceConfigRequest(BaseModel):

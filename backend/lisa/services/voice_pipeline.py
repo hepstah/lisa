@@ -4,8 +4,10 @@ Every code path calls TTS.speak() per ERR-01 (no silent failures).
 Cloud calls enforce 3-second timeouts per ERR-03 (via service constructors).
 """
 
+import json
 import logging
 
+from lisa.config import settings
 from lisa.services.stt_service import STTError, STTTimeoutError, STTNoSpeechError, STTService
 from lisa.services.llm_intent_service import (
     LLMError,
@@ -25,6 +27,13 @@ MSG_UNKNOWN_INTENT = (
 MSG_DEVICE_ERROR = "I had trouble controlling that device. Please try again."
 MSG_DEVICE_UNREACHABLE = "That device doesn't seem to be reachable right now."
 MSG_NO_SPEECH = "I didn't hear anything. Please try again."
+
+
+def _dump_debug(debug_dict: dict) -> str | None:
+    """JSON-encode a debug dict only in dev mode; return None otherwise."""
+    if not settings.dev_mode:
+        return None
+    return json.dumps(debug_dict)
 
 
 class VoicePipeline:
@@ -58,9 +67,12 @@ class VoicePipeline:
 
         # Step 2: Parse intent via LLM
         try:
-            intent = await self._llm.parse_intent(text, device_context)
+            result = await self._llm.parse_intent(text, device_context)
         except LLMTimeoutError:
             self._log.warning("LLM timeout for input: %s", text)
+            llm_debug = _dump_debug(
+                {"input_text": text, "error": "LLMTimeoutError: LLM request timed out"}
+            )
             await self._tts.speak(MSG_LLM_TIMEOUT)
             return {
                 "status": "error",
@@ -68,9 +80,13 @@ class VoicePipeline:
                 "error_message": MSG_LLM_TIMEOUT,
                 "raw_input": text,
                 "tts_spoken": True,
+                "llm_debug": llm_debug,
             }
         except LLMError as exc:
             self._log.warning("LLM error for input: %s: %s", text, exc)
+            llm_debug = _dump_debug(
+                {"input_text": text, "error": f"LLMError: {exc}"}
+            )
             await self._tts.speak(MSG_NO_INTERNET)
             return {
                 "status": "error",
@@ -78,7 +94,11 @@ class VoicePipeline:
                 "error_message": MSG_NO_INTERNET,
                 "raw_input": text,
                 "tts_spoken": True,
+                "llm_debug": llm_debug,
             }
+
+        intent = result.intent
+        llm_debug = _dump_debug(result.debug)
 
         # Step 3: Handle unknown intent
         if intent is None:
@@ -90,6 +110,7 @@ class VoicePipeline:
                 "error_message": MSG_UNKNOWN_INTENT,
                 "raw_input": text,
                 "tts_spoken": True,
+                "llm_debug": llm_debug,
             }
 
         # Step 4: Execute device command
@@ -98,6 +119,7 @@ class VoicePipeline:
             action=intent.action,
             source=source,
             raw_input=text,
+            llm_debug=llm_debug,
         )
 
         # Step 5: Speak result -- every outcome gets TTS per ERR-01

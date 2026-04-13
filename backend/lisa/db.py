@@ -26,7 +26,8 @@ async def init_db():
                 status TEXT NOT NULL,
                 error_message TEXT,
                 error_stage TEXT,
-                duration_ms INTEGER
+                duration_ms INTEGER,
+                llm_debug TEXT
             );
 
             CREATE TABLE IF NOT EXISTS devices (
@@ -45,5 +46,14 @@ async def init_db():
             );
         """)
         await db.commit()
+
+        # Idempotent migration for existing dev DBs that were created before
+        # the llm_debug column existed. Swallows OperationalError when the
+        # column is already present. Single-home SQLite DB; acceptable per spec.
+        try:
+            await db.execute("ALTER TABLE command_log ADD COLUMN llm_debug TEXT")
+            await db.commit()
+        except aiosqlite.OperationalError:
+            pass  # column already exists
     finally:
         await db.close()

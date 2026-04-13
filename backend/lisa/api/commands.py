@@ -1,3 +1,4 @@
+import json
 from datetime import datetime, timezone
 
 from fastapi import APIRouter
@@ -26,21 +27,31 @@ async def get_command_history(limit: int = 50, offset: int = 0):
             (limit, offset),
         )
         rows = await cursor.fetchall()
-        return [
-            CommandRecord(
-                id=r["id"],
-                timestamp=r["timestamp"],
-                source=r["source"],
-                raw_input=r["raw_input"],
-                device_id=r["device_id"],
-                action=r["action"],
-                status=r["status"],
-                error_message=r["error_message"],
-                error_stage=r["error_stage"],
-                duration_ms=r["duration_ms"],
+        records = []
+        for r in rows:
+            llm_debug_raw = r["llm_debug"] if "llm_debug" in r.keys() else None
+            try:
+                llm_debug_parsed = (
+                    json.loads(llm_debug_raw) if llm_debug_raw else None
+                )
+            except (ValueError, TypeError):
+                llm_debug_parsed = None
+            records.append(
+                CommandRecord(
+                    id=r["id"],
+                    timestamp=r["timestamp"],
+                    source=r["source"],
+                    raw_input=r["raw_input"],
+                    device_id=r["device_id"],
+                    action=r["action"],
+                    status=r["status"],
+                    error_message=r["error_message"],
+                    error_stage=r["error_stage"],
+                    duration_ms=r["duration_ms"],
+                    llm_debug=llm_debug_parsed,
+                )
             )
-            for r in rows
-        ]
+        return records
     finally:
         await db.close()
 
@@ -64,8 +75,8 @@ async def text_command(req: TextCommandRequest):
                 cursor = await db.execute(
                     """INSERT INTO command_log
                        (source, raw_input, device_id, action, status,
-                        error_message, error_stage)
-                       VALUES (?, ?, ?, ?, ?, ?, ?)""",
+                        error_message, error_stage, llm_debug)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
                     (
                         req.source,
                         req.text,
@@ -74,6 +85,7 @@ async def text_command(req: TextCommandRequest):
                         result["status"],
                         result.get("error_message"),
                         result.get("error_stage"),
+                        result.get("llm_debug"),
                     ),
                 )
                 await db.commit()
@@ -82,6 +94,18 @@ async def text_command(req: TextCommandRequest):
                 await db.close()
 
         result.setdefault("timestamp", _now_iso())
+
+        # Normalize llm_debug for the broadcast / response shape. The voice
+        # pipeline stores it as a JSON string (so DeviceService and the INSERT
+        # above can pass it through opaquely). Parse it back to a dict here so
+        # the WS live-update payload matches the history endpoint contract --
+        # the dashboard expects LlmDebug as an object, not a JSON string.
+        if isinstance(result.get("llm_debug"), str):
+            try:
+                result["llm_debug"] = json.loads(result["llm_debug"])
+            except (ValueError, TypeError):
+                result["llm_debug"] = None
+
         await manager.broadcast({"type": "command_logged", "command": result})
         return result
 
