@@ -69,8 +69,8 @@ class VoicePipeline:
                 "raw_input": text,
                 "tts_spoken": True,
             }
-        except LLMError:
-            self._log.warning("LLM connection error for input: %s", text)
+        except LLMError as exc:
+            self._log.warning("LLM error for input: %s: %s", text, exc)
             await self._tts.speak(MSG_NO_INTERNET)
             return {
                 "status": "error",
