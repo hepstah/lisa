@@ -18,7 +18,7 @@ async def init_db():
         await db.executescript("""
             CREATE TABLE IF NOT EXISTS command_log (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                timestamp TEXT NOT NULL DEFAULT (datetime('now')),
+                timestamp TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
                 source TEXT NOT NULL,
                 raw_input TEXT,
                 device_id TEXT,
@@ -34,14 +34,14 @@ async def init_db():
                 alias TEXT NOT NULL,
                 device_type TEXT,
                 host TEXT,
-                added_at TEXT NOT NULL DEFAULT (datetime('now')),
+                added_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
                 last_seen TEXT
             );
 
             CREATE TABLE IF NOT EXISTS settings (
                 key TEXT PRIMARY KEY,
                 value TEXT NOT NULL,
-                updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+                updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
             );
         """)
         await db.commit()
