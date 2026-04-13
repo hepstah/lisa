@@ -6,6 +6,18 @@ export interface DeviceState {
   is_reachable: boolean;
 }
 
+// LLM debug blob -- dev-mode only, mirrors backend llm_debug column shape
+export interface LlmDebug {
+  input_text: string;
+  devices_seen: Array<{ device_id: string; alias: string; is_on: boolean }>;
+  decision:
+    | { tool_used: true; device_id: string; action: string; confirmation: string }
+    | { tool_used: false; text: string }
+    | { error: string };
+  usage?: { input_tokens: number; output_tokens: number };
+  stop_reason?: string;
+}
+
 // Command types -- mirrors backend CommandRecord
 export interface CommandRecord {
   id: number;
@@ -18,6 +30,7 @@ export interface CommandRecord {
   error_message: string | null;
   error_stage: string | null;
   duration_ms: number | null;
+  llm_debug?: LlmDebug | null;
 }
 
 // Request types

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { CommandRecord } from "../api/types";
+import type { CommandRecord, LlmDebug } from "../api/types";
 
 interface CommandHistoryProps {
   commands: CommandRecord[];
@@ -152,6 +152,9 @@ export function CommandHistory({ commands, loading }: CommandHistoryProps) {
                             {cmd.duration_ms}ms
                           </p>
                         )}
+                        {cmd.llm_debug && (
+                          <LlmDebugSection debug={cmd.llm_debug} />
+                        )}
                       </div>
                     </TableCell>
                   </TableRow>
@@ -161,6 +164,79 @@ export function CommandHistory({ commands, loading }: CommandHistoryProps) {
           })}
         </TableBody>
       </Table>
+    </div>
+  );
+}
+
+function LlmDebugSection({ debug }: { debug: LlmDebug }) {
+  const decision = debug.decision;
+  let summary: JSX.Element;
+  let statsRow: JSX.Element | null = null;
+
+  if ("error" in decision) {
+    summary = (
+      <p>
+        <span className="font-medium text-foreground">Decision:</span>{" "}
+        <span className="text-red-500">Error: {decision.error}</span>
+      </p>
+    );
+  } else if (decision.tool_used) {
+    summary = (
+      <p>
+        <span className="font-medium text-foreground">Decision:</span>{" "}
+        Tool: control_device(device={decision.device_id}, action={decision.action})
+      </p>
+    );
+  } else {
+    const snippet = decision.text.slice(0, 80);
+    summary = (
+      <p>
+        <span className="font-medium text-foreground">Decision:</span>{" "}
+        No tool -- text: "{snippet}"
+      </p>
+    );
+  }
+
+  if (!("error" in decision) && debug.usage && debug.stop_reason) {
+    statsRow = (
+      <p>
+        <span className="font-medium text-foreground">Stats:</span> input{" "}
+        {debug.usage.input_tokens} tok | output {debug.usage.output_tokens} tok |
+        stop: {debug.stop_reason}
+      </p>
+    );
+  }
+
+  return (
+    <div className="mt-2">
+      <p>
+        <span className="font-medium text-foreground">LLM Debug:</span>
+      </p>
+      {summary}
+      {statsRow}
+      <details className="mt-1">
+        <summary className="cursor-pointer text-foreground">
+          Devices seen ({debug.devices_seen.length})
+        </summary>
+        <table className="mt-1 w-full text-xs">
+          <thead>
+            <tr>
+              <th className="text-left">device_id</th>
+              <th className="text-left">alias</th>
+              <th className="text-left">is_on</th>
+            </tr>
+          </thead>
+          <tbody>
+            {debug.devices_seen.map((d) => (
+              <tr key={d.device_id}>
+                <td className="font-mono">{d.device_id}</td>
+                <td>{d.alias}</td>
+                <td>{d.is_on ? "on" : "off"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </details>
     </div>
   );
 }
