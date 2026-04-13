@@ -3,8 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Milestone complete
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-04-11T21:01:13.744Z"
+stopped_at: "Completed quick task 260413-l32: Pre-hardware enhancements (test isolation + LLM debug capture)"
+last_updated: "2026-04-13T19:28:19.735Z"
+last_activity: "2026-04-13 - Completed quick task 260413-jwo: Fix LLM error logging, missing timestamp in command broadcasts, and SQLite ISO timestamp format"
 progress:
   total_phases: 3
   completed_phases: 3
@@ -101,11 +102,12 @@ None yet.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260413-jwo | Fix LLM error logging, missing timestamp in command broadcasts, and SQLite ISO timestamp format | 2026-04-13 | 53bf95f | [260413-jwo-fix-llm-error-logging-missing-timestamp-](./quick/260413-jwo-fix-llm-error-logging-missing-timestamp-/) |
+| 260413-l32 | Pre-hardware enhancements: test isolation from Anthropic (mock_llm_intent + live-key safety net) and dev-mode LLM debug capture (IntentResult, llm_debug column, dashboard subsection) | 2026-04-13 | aa3a5d4 | [260413-l32-implement-pre-hardware-enhancements-per-](./quick/260413-l32-implement-pre-hardware-enhancements-per-/) |
 
-Last activity: 2026-04-13 - Completed quick task 260413-jwo: Fix LLM error logging, missing timestamp in command broadcasts, and SQLite ISO timestamp format
+Last activity: 2026-04-13 - Completed quick task 260413-l32: Pre-hardware enhancements (test isolation + LLM debug capture)
 
 ## Session Continuity
 
-Last session: 2026-04-11T20:42:26.529Z
-Stopped at: Completed 03-01-PLAN.md
+Last session: 2026-04-13T19:28:19.731Z
+Stopped at: Completed quick task 260413-l32: Pre-hardware enhancements (test isolation + LLM debug capture)
 Resume file: None
