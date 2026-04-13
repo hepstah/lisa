@@ -96,6 +96,14 @@ None yet.
 - [Pre-Phase 1]: Initial device integration not yet confirmed (Hue Bridge vs TP-Link Kasa vs Home Assistant). Must be decided before Phase 1 planning.
 - [Pre-Phase 1]: LLM provider choice (Claude vs GPT-4o-mini) unresolved. Must be decided before Phase 2 planning.
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260413-jwo | Fix LLM error logging, missing timestamp in command broadcasts, and SQLite ISO timestamp format | 2026-04-13 | 53bf95f | [260413-jwo-fix-llm-error-logging-missing-timestamp-](./quick/260413-jwo-fix-llm-error-logging-missing-timestamp-/) |
+
+Last activity: 2026-04-13 - Completed quick task 260413-jwo: Fix LLM error logging, missing timestamp in command broadcasts, and SQLite ISO timestamp format
+
 ## Session Continuity
 
 Last session: 2026-04-11T20:42:26.529Z
