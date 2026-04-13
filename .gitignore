@@ -1,0 +1,49 @@
+# Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Node / dashboard
+node_modules/
+dashboard/dist/
+dashboard/.vite/
+*.log
+npm-debug.log*
+
+# Databases
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# TTS / voice model artifacts (downloaded separately, not source)
+backend/models/
+backend/tts_output/
+
+# Agent scratch worktrees
+.claude/worktrees/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
